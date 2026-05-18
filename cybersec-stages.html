@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500+ Entreprises Cybersécurité France - Stages 2021-2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0e1a; color: #e0e0e0; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #1a1f3a 0%, #0d1117 100%); padding: 30px 20px; text-align: center; border-bottom: 2px solid #00d4ff; }
+        .header h1 { font-size: 2.2em; color: #00d4ff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,212,255,0.3); }
+        .header p { color: #8892b0; font-size: 1.1em; }
+        .stats-bar { display: flex; justify-content: center; gap: 30px; margin-top: 15px; flex-wrap: wrap; }
+        .stat { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); padding: 8px 20px; border-radius: 20px; }
+        .stat strong { color: #00d4ff; }
+        .controls { padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .search-box { width: 100%; padding: 14px 20px; font-size: 16px; border: 2px solid #1e2a4a; border-radius: 10px; background: #0f1629; color: #fff; margin-bottom: 15px; transition: border-color 0.3s; }
+        .search-box:focus { outline: none; border-color: #00d4ff; box-shadow: 0 0 15px rgba(0,212,255,0.2); }
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .filter-select { padding: 10px 15px; border: 1px solid #1e2a4a; border-radius: 8px; background: #0f1629; color: #e0e0e0; font-size: 14px; cursor: pointer; }
+        .filter-select:focus { outline: none; border-color: #00d4ff; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid #2a3a5a; background: #0f1629; color: #8892b0; transition: all 0.3s; }
+        .tag:hover, .tag.active { background: rgba(0,212,255,0.15); border-color: #00d4ff; color: #00d4ff; }
+        .results-info { padding: 10px 0; color: #8892b0; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; padding: 0 0 40px 0; }
+        .card { background: #111827; border: 1px solid #1e2a4a; border-radius: 12px; padding: 18px; transition: all 0.3s; position: relative; overflow: hidden; }
+        .card:hover { border-color: #00d4ff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.1); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .card h3 { font-size: 1.05em; color: #fff; margin-bottom: 4px; }
+        .card .category { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: rgba(0,212,255,0.1); color: #00d4ff; white-space: nowrap; }
+        .card .info { font-size: 13px; color: #8892b0; margin: 4px 0; }
+        .card .info span { color: #a0aec0; }
+        .card .tags-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+        .card .mini-tag { font-size: 10px; padding: 2px 7px; border-radius: 3px; background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+        .card a { color: #00d4ff; text-decoration: none; font-size: 12px; }
+        .card a:hover { text-decoration: underline; }
+        .pagination { display: flex; justify-content: center; gap: 8px; padding: 20px 0 40px; flex-wrap: wrap; }
+        .page-btn { padding: 8px 14px; border: 1px solid #1e2a4a; border-radius: 6px; background: #0f1629; color: #8892b0; cursor: pointer; transition: all 0.3s; }
+        .page-btn:hover, .page-btn.active { background: rgba(0,212,255,0.15); border-color: #00d4ff; color: #00d4ff; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.5em; } .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔐 Entreprises Cybersécurité France</h1>
+        <p>500+ entreprises privées ayant proposé des stages en cybersécurité (2021-2026)</p>
+        <div class="stats-bar">
+            <div class="stat"><strong id="total-count">0</strong> entreprises</div>
+            <div class="stat"><strong id="filtered-count">0</strong> résultats affichés</div>
+            <div class="stat">Sources: LinkedIn, Indeed, WTTJ, Wavestone Radar, ANSSI</div>
+        </div>
+    </div>
+    <div class="controls">
+        <input type="text" class="search-box" id="search" placeholder="🔍 Rechercher par nom, ville, secteur, spécialité...">
+        <div class="filters">
+            <select class="filter-select" id="filter-category">
+                <option value="">Toutes les catégories</option>
+                <option value="Pure Player Cyber">Pure Player Cyber</option>
+                <option value="ESN / Consulting IT">ESN / Consulting IT</option>
+                <option value="Startup Cyber">Startup Cyber</option>
+                <option value="Éditeur / Solutions">Éditeur / Solutions</option>
+                <option value="Big4 / Cabinet Conseil">Big4 / Cabinet Conseil</option>
+                <option value="Entreprise avec équipe cyber">Entreprise avec équipe cyber</option>
+                <option value="Intégrateur / MSSP">Intégrateur / MSSP</option>
+                <option value="Telecom / Cloud">Telecom / Cloud</option>
+            </select>
+            <select class="filter-select" id="filter-city">
+                <option value="">Toutes les villes</option>
+                <option value="Paris">Paris / Île-de-France</option>
+                <option value="Lyon">Lyon</option>
+                <option value="Toulouse">Toulouse</option>
+                <option value="Bordeaux">Bordeaux</option>
+                <option value="Rennes">Rennes</option>
+                <option value="Nantes">Nantes</option>
+                <option value="Marseille">Marseille</option>
+                <option value="Lille">Lille</option>
+                <option value="Strasbourg">Strasbourg</option>
+                <option value="Grenoble">Grenoble</option>
+                <option value="Nice">Nice</option>
+                <option value="Montpellier">Montpellier</option>
+            </select>
+            <select class="filter-select" id="filter-size">
+                <option value="">Toutes les tailles</option>
+                <option value="TPE">TPE (1-10)</option>
+                <option value="PME">PME (11-250)</option>
+                <option value="ETI">ETI (251-5000)</option>
+                <option value="GE">Grande Entreprise (5000+)</option>
+            </select>
+        </div>
+        <div class="tags" id="specialty-tags"></div>
+        <div class="results-info" id="results-info"></div>
+        <div class="grid" id="grid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+<script src="data1.js"></script>
+<script src="data2.js"></script>
+<script src="data3.js"></script>
+<script src="data4.js"></script>
+<script src="data5.js"></script>
+<script>
+const COMPANIES = [...DATA_PART1, ...DATA_PART2, ...DATA_PART3, ...DATA_PART4, ...DATA_PART5];
+const ITEMS_PER_PAGE = 30;
+let currentPage = 1;
+let filtered = [...COMPANIES];
+let activeSpecialty = '';
+
+const specialties = [...new Set(COMPANIES.flatMap(c => c.sp))].sort();
+const tagsContainer = document.getElementById('specialty-tags');
+specialties.forEach(s => {
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = s;
+    tag.onclick = () => {
+        if (activeSpecialty === s) { activeSpecialty = ''; tag.classList.remove('active'); }
+        else { document.querySelectorAll('.tag').forEach(t => t.classList.remove('active')); activeSpecialty = s; tag.classList.add('active'); }
+        applyFilters();
+    };
+    tagsContainer.appendChild(tag);
+});
+
+document.getElementById('total-count').textContent = COMPANIES.length;
+document.getElementById('search').addEventListener('input', () => { currentPage = 1; applyFilters(); });
+document.getElementById('filter-category').addEventListener('change', () => { currentPage = 1; applyFilters(); });
+document.getElementById('filter-city').addEventListener('change', () => { currentPage = 1; applyFilters(); });
+document.getElementById('filter-size').addEventListener('change', () => { currentPage = 1; applyFilters(); });
+
+function applyFilters() {
+    const search = document.getElementById('search').value.toLowerCase();
+    const cat = document.getElementById('filter-category').value;
+    const city = document.getElementById('filter-city').value;
+    const size = document.getElementById('filter-size').value;
+    filtered = COMPANIES.filter(c => {
+        if (cat && c.c !== cat) return false;
+        if (city && !c.v.toLowerCase().includes(city.toLowerCase())) return false;
+        if (size && c.t !== size) return false;
+        if (activeSpecialty && !c.sp.includes(activeSpecialty)) return false;
+        if (search) {
+            const haystack = (c.n + ' ' + c.c + ' ' + c.v + ' ' + c.sp.join(' ') + ' ' + c.s).toLowerCase();
+            return haystack.includes(search);
+        }
+        return true;
+    });
+    document.getElementById('filtered-count').textContent = filtered.length;
+    render();
+}
+
+function render() {
+    const grid = document.getElementById('grid');
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const page = filtered.slice(start, start + ITEMS_PER_PAGE);
+    document.getElementById('results-info').textContent = `Affichage ${start + 1}-${Math.min(start + ITEMS_PER_PAGE, filtered.length)} sur ${filtered.length} entreprises`;
+    grid.innerHTML = page.map(c => `
+        <div class="card">
+            <div class="card-header">
+                <div><h3>${c.n}</h3><div class="info"><span>📍</span> ${c.v} | <span>👥</span> ${c.t === 'TPE' ? '1-10' : c.t === 'PME' ? '11-250' : c.t === 'ETI' ? '251-5000' : '5000+'}</div></div>
+                <span class="category">${c.c}</span>
+            </div>
+            <div class="info">🌐 <a href="https://${c.s}" target="_blank">${c.s}</a></div>
+            <div class="info">📢 Source: ${c.sr}</div>
+            <div class="tags-row">${c.sp.map(s => `<span class="mini-tag">${s}</span>`).join('')}</div>
+        </div>
+    `).join('');
+    renderPagination();
+}
+
+function renderPagination() {
+    const total = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const pag = document.getElementById('pagination');
+    if (total <= 1) { pag.innerHTML = ''; return; }
+    let html = '';
+    if (currentPage > 1) html += `<button class="page-btn" onclick="goPage(${currentPage-1})">◀</button>`;
+    const startP = Math.max(1, currentPage - 3);
+    const endP = Math.min(total, currentPage + 3);
+    if (startP > 1) html += `<button class="page-btn" onclick="goPage(1)">1</button><span style="color:#555">...</span>`;
+    for (let i = startP; i <= endP; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+    }
+    if (endP < total) html += `<span style="color:#555">...</span><button class="page-btn" onclick="goPage(${total})">${total}</button>`;
+    if (currentPage < total) html += `<button class="page-btn" onclick="goPage(${currentPage+1})">▶</button>`;
+    pag.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; render(); window.scrollTo({top: 300, behavior: 'smooth'}); }
+applyFilters();
+</script>
+</body>
+</html>
